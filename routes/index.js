@@ -448,13 +448,14 @@ function findPathForSnake( data, gameState, graph, next){
 
     var path = findFoodPath(gameState, foodSources.data[0]);
 
-    var dest = path[1]
 
     if (path.length === 0)
     {
       var moves = snake.getNeighbors(gameState);
       console.log("moves",moves);
       dest = moves[0];
+    } else {
+      dest = path[1]
     }
     
 
