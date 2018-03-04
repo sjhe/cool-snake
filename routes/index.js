@@ -405,7 +405,7 @@ function chaseTail(){
 function findFoodPath(gameState, foodPath){
   // var start = graph.grid[my_snake.head.x][my_snake.head.y];
   // var end = graph.grid[foodPath.x][foodPath.y];
-  console.log("gameState", gameState)
+  // console.log("gameState", gameState)
 
   var grid = new PF.Grid(gameState);
 
@@ -424,6 +424,7 @@ function findFoodPath(gameState, foodPath){
   return path;
 }
 
+var foodIndex = 0;
 
 function findPathForSnake( data, gameState, graph, next){  
   try {
@@ -446,7 +447,15 @@ function findPathForSnake( data, gameState, graph, next){
       var moves = snake.getNeighbors(gameState);
       dest = moves[0];
     } else {
-      var path = findFoodPath(gameState, foodSources.data[0]);
+      if (health_points === 100) {
+        foodIndex = Math.floor(Math.random() * foodSources.data.length);
+      } 
+
+      if( foodIndex >= foodSources.data.length) {
+        foodIndex = 0;
+      }
+      console.log("index", foodIndex)
+      var path = findFoodPath(gameState, foodSources.data[foodIndex]);
       if (path.length === 0)
       {
         var moves = snake.getNeighbors(gameState);
@@ -456,10 +465,10 @@ function findPathForSnake( data, gameState, graph, next){
         dest = path[1]
       }
     }
-  
-    var result = my_snake.getDirection(dest)
-
-    return result;
+    if (!dest) {
+      dest = [0,0]
+    }
+    return my_snake.getDirection(dest);
  
     
   }catch(e){
