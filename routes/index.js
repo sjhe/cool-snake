@@ -15,7 +15,7 @@ var my_snake  = {};
 var other_snake = [];
 
 var graph;
-// console.log(grid);
+
 // Handle POST request to '/start'
 router.post('/start', function (req, res) {
   // NOTE: Do something here to start the game
@@ -112,13 +112,10 @@ class Snake {
   }
 
   getDirection(coord) {
-    console.log("coord",coord)
     var head = this.head;
     var dx = -(this.head.x - coord[0]);
     var dy = -(this.head.y - coord[1]);
   
-    // console.log("head",head)
-    // console.log("coord",coord)
     if (dx != 0) {
       if (dx >= 0 ) {
         return 'right'
@@ -453,7 +450,7 @@ function findPathForSnake( data, gameState, graph, next){
       if (path.length === 0)
       {
         var moves = snake.getNeighbors(gameState);
-        console.log("moves",moves);
+        // console.log("moves",moves);
         dest = moves[0];
       } else {
         dest = path[1]
@@ -462,31 +459,8 @@ function findPathForSnake( data, gameState, graph, next){
   
     var result = my_snake.getDirection(dest)
 
-    // if (result == my_snake.direction) {
-
-    // }
     return result;
-    // for(var i = 0; i < foodSources.length; i++){
-    //   (function(i) {
-    //     var foodLocation = foodSources[i];
-    //     var end   = graph.grid[foodLocation[0]][foodLocation[1]];
-
-    //     console.log("searching : start (" + headCoord[0]  + "," + headCoord[1] + ")"  )
-    //     console.log("searching : end (" + foodLocation[0] + "," + foodLocation[1] + ")"  )
-
-    //     var path  = astar.search(graph, start, end,  { heuristic: astar.heuristics.manhattan });
-    //     paths.push(path);
-    //     // console.log(path.length);
-    //     if(i == foodSources.length -1){
-    //       snake.foodPaths = paths; // found all paths
-    //       // Shortest to longest
-    //       paths.sort(function(a,b){
-    //         return a.length > b.length;
-    //       });
-    //       next(paths);  // return shortest path
-    //     }
-    //   })(i);
-    // }
+ 
     
   }catch(e){
     console.log(e);
@@ -499,11 +473,6 @@ function printPath(path){
     console.log(path[i].x + ', ' + path[i].y );
   }
 }
-
-
-// function followTailPath(snake){
-
-// }
 
 function handle_snake(req, res, next){
   var data   = req.body;
@@ -521,7 +490,7 @@ function handle_snake(req, res, next){
     var move;
     var cool_snake = {};
 
-    console.log("data.snakes.body", data.snakes.data[0].body);
+    // console.log("data.snakes.body", data.snakes.data[0].body);
 
     var gameState = getGameBoard(data);
     var available_moves = [];
@@ -531,7 +500,7 @@ function handle_snake(req, res, next){
 
     var direction = findPathForSnake(data, gameState, graph)
     
-    console.log(gameState)
+    // console.log(gameState)
 
     response.move = direction;
     //   if( typeof paths === 'object'){
@@ -624,7 +593,6 @@ function handle_snake(req, res, next){
     console.error("Error", e);
   }
  
-  console.log("respond", response)
   res.json(response);
 }
 
