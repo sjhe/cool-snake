@@ -241,7 +241,6 @@ function getGameBoard(data){
     var width  = data.width ;
     var gameBoard = fillGraphWithOnes(height, width);
     var snakes = data.snakes;
-
     var food = data.food;
 
     // Find all the food and graph them
